@@ -1,5 +1,5 @@
 import React from "react";
-import AddTodo from "./components/AddTodo";
+import { AddTodo } from "./components/AddTodoHooks";
 import TodoList from "./components/TodoList";
 import VisibilityFilters from "./components/VisibilityFilters";
 import "./styles.css";
