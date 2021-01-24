@@ -1,11 +1,11 @@
 import React from "react";
 import cx from "classnames";
 import { connect } from "react-redux";
-import { setFilter } from "../redux/actions";
+import { setFilter, setAuthorFilter } from "../redux/actions";
 import { getDistinctAuthors } from "../redux/selectors";
 import { VISIBILITY_FILTERS } from "../constants";
 
-const VisibilityFilters = ({ activeFilter, setFilter, authors }) => {
+const VisibilityFilters = ({ activeFilter, activeAuthorFilter, setFilter, authors }) => {
   return (
     <div>
       <div className="visibility-filters">
@@ -28,9 +28,22 @@ const VisibilityFilters = ({ activeFilter, setFilter, authors }) => {
         })}
       </div>
 
-      <div>
+      <div className="visibility-filters">
         {authors.map((author) => {
-          return <p>{author}</p>;
+          console.log(author, activeAuthorFilter)
+          return (
+            <span
+              className={cx("filter", author === activeAuthorFilter && "filter--active")}
+              key={`visibility-filter-author-${author}`}
+              onClick={() => {
+                console.log(author)
+                setAuthorFilter(author);
+                console.log(author)
+              }}
+            >
+              {author}
+            </span>
+          );
         })}
       </div>
     </div>
@@ -40,7 +53,7 @@ const VisibilityFilters = ({ activeFilter, setFilter, authors }) => {
 const mapStateToProps = (state) => {
   const authors = getDistinctAuthors(state);
 
-  return { activeFilter: state.visibilityFilter, authors };
+  return { activeFilter: state.visibilityFilter.filter, activeAuthorFilter: state.visibilityFilter.authorFilter, authors };
 };
 // export default VisibilityFilters;
-export default connect(mapStateToProps, { setFilter })(VisibilityFilters);
+export default connect(mapStateToProps, { setFilter, setAuthorFilter })(VisibilityFilters);

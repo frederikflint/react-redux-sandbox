@@ -1,4 +1,5 @@
 import { VISIBILITY_FILTERS } from "../constants";
+import visibilityFilter from "./reducers/visibilityFilter";
 
 export const getTodosState = (store) => store.todos;
 
@@ -11,11 +12,11 @@ export const getTodoById = (store, id) =>
 export const getDistinctAuthors = (store) => {
   const todos = getTodos(store);
 
-  return (
+  return (["ALL",
     todos
       .map((todo) => todo.content.inputAuthor)
       // Easy way of getting unique elements of array
-      .filter((value, index, self) => self.indexOf(value) === index)
+      .filter((value, index, self) => self.indexOf(value) === index)]
   );
 };
 
@@ -38,3 +39,7 @@ export const getTodosByVisibilityFilter = (store, visibilityFilter) => {
       return allTodos;
   }
 };
+
+export const getTodosByVisibilityFilterAndAuthor = (store, visibilityFilter, authorFilter) => {
+  const allTodos = getTodosByVisibilityFilter(store, visibilityFilter).filter(todo => authorFilter === "ALL" || todo.content.inputAuthor === authorFilter);
+}

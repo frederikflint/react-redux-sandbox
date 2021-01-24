@@ -2,15 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import Todo from "./Todo";
 // import { getTodos } from "../redux/selectors";
-import { getTodosByVisibilityFilter } from "../redux/selectors";
+import { getTodosByVisibilityFilterAndAuthor } from "../redux/selectors";
 import { VISIBILITY_FILTERS } from "../constants";
 
 const TodoList = ({ todos }) => (
   <ul className="todo-list">
     {todos && todos.length
       ? todos.map((todo, index) => {
-          return <Todo key={`todo-${todo.id}`} todo={todo} />;
-        })
+        return <Todo key={`todo-${todo.id}`} todo={todo} />;
+      })
       : "No todos, yay!"}
   </ul>
 );
@@ -25,8 +25,8 @@ const TodoList = ({ todos }) => (
 // };
 
 const mapStateToProps = state => {
-  const { visibilityFilter } = state;
-  const todos = getTodosByVisibilityFilter(state, visibilityFilter);
+  const { filter, authorFilter } = state.visibilityFilter;
+  const todos = getTodosByVisibilityFilterAndAuthor(state, filter, authorFilter);
   return { todos };
   //   const allTodos = getTodos(state);
   //   return {
