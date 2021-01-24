@@ -5,7 +5,7 @@ import { setFilter, setAuthorFilter } from "../redux/actions";
 import { getDistinctAuthors } from "../redux/selectors";
 import { VISIBILITY_FILTERS } from "../constants";
 
-const VisibilityFilters = ({ activeFilter, activeAuthorFilter, setFilter, authors }) => {
+const VisibilityFilters = ({ activeFilter, activeAuthorFilter, setAuthorFilter, setFilter, authors }) => {
   return (
     <div>
       <div className="visibility-filters">
